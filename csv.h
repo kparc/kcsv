@@ -15,7 +15,7 @@ U tok(CSV*r);
 
 #define DBG
 #ifdef DBG
-_ trc(CSV*c){N(c->n,O("[%.*s]",c->i[i+1]-c->i[i]-1,c->b+c->i[i]);O("%c",((i+1)%c->cct)?c->sep:'\n'))O("\n");}//!< tokenizer debug
+_ trc(CSV*c){I rct=0;N(c->n,if(!((i)%c->cct))O("%6d ",rct++);O("[%.*s]",c->i[i+1]-c->i[i]-1,c->b+c->i[i]);O("%c",((i+1)%c->cct)?c->sep:'\n'))O("\n");}//!< tokenizer debug
 K dbg(S s,K r){O("%s t=%-2d n=%d -> %llx \n",s,rt,rn,rU[-1]);N(rn,K y=r1(rU[i]);O("  %s t=%-2d n=%d -> ",s,yt,yn);O("%llx\n",yU[-1]));R r;}//!< result object
 #define bits(t,one)Zin _ OB##t(t n){N(sizeof(t)*8,O("%c%c",(n&(one<<i))?'1':'0',(((i+1)%32))?' ':'\n'))}
 bits(U,1LL)bits(G,1)

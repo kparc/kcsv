@@ -49,7 +49,7 @@ Zin _ grow(CSV*r,U base,U wm){
 	r->bn+=r->more;r->rea++;}
 
 //r->bn=r->bn<64?64:r->bn;
-U tok(CSV*r){span in;U intl_idx,sep,trm,qt_mask,f_sep,idx=0,base=0,in_qt=0;IT*base_ptr=r->i;U prev_iter_cr_end=0;
+U tok(CSV*r){span in;U intl_idx,sep,trm,qt_mask,f_sep,idx=0,base=0,in_qt=0,prev_iter_cr_end=0;IT*base_ptr=r->i;
  U watermark=r->batch*r->cct;
  if(!r->b){
 	U ADJ=watermark/r->bpf;

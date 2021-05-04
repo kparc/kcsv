@@ -6,7 +6,7 @@ I opn(K x){S f=calloc(1,xn+1);memcpy(f,xG,xn);I r=access(f,F_OK);Z(!r,goto OP);r
 _ thr(U id){pjob*jb;W(1){jb=(pjob*)deq(Q);Z(jb,Z(jb->jid<0,break);jb->p(jb);A(sub_fetch)(&N,1,0);continue;)yld();}} //!< parser thread
 _ cpu(I n){Z(Q,R)Z(0<n,Q=que();N(n,launch(thr,i))){pjob jb={-1};N(-n,enq(Q,&jb))join_all();free(Q);}}               //!< launch/join parser threads
 
-#define MAP(c,t,f) C(c,typ[i]=t==KC?0:t==KQ?KJ:t;y=rU[cct++]=tn(typ[i],1);Z(t==KB,yG[-8]=1);prs[i]=(PRS)u##f)    //!< map format specifier to a parser function
+#define MAP(c,t,f) C(c,typ[i]=t==KC?0:t==KQ?KJ:t;y=rU[cct++]=tn(typ[i],1);Z(t==KB,yG[-8]=1);prs[i]=(PRS)u##f)       //!< map format specifier to a parser function
 ZK prs(I fd,I ncol,K cnames,I ncpu,U skp,G sep,S fmt,prof*prf){BENCH();UI jcnt,hct=n_(cnames),cct=0,typ[ncol];PRS prs[ncol];K y,r=tn(0,hct);
 	N(ncol,S(fmt[i],MAP('b',KB,B)MAP('g',KG,G)MAP('i',KI,I)MAP('j',KJ,J)MAP('f',KF,F)MAP('s',KS,S)MAP('d',KD,D)MAP('t',KT+8,T)MAP('Q',KQ,Q)C('*',typ[i]=prs[i]=0),QQ(1,"!type")))
 
@@ -24,15 +24,20 @@ ZK prs(I fd,I ncol,K cnames,I ncpu,U skp,G sep,S fmt,prof*prf){BENCH();UI jcnt,h
 		//trc(&c);
 
 		UI rct=c.n/ncol;
+
+		//                                {J jid;G lbl;     PRS p;S s;  IT*i;        U rct;U strd;K x;U skip; U*tbytes;}pjob;
 		N(ncol,Z(typ[i],jobs[jcnt]=(pjob){jcnt++,fmt[ncol],prs[i],c.b,c.i+skp*ncol+i,rct-skp,ncol,r,ttl(rows),&bytes_parsed}))
 		cpu(ncpu);N(cct,pjob*jb=jobs+i;jb->s=c.b;enq(Q,jb))
 		skp=0;ttl(rows)+=rct;N=cct;
 		WALL(W(N)yld())ttl(ptime)+=wall;
 
-		//Z(prf->total_rows>=1e6,break);
+		//Z(prf->total_rows>=1e3,break);
 	}
 	ttl(bytes)=c.rbytes;ttl(parsed)=bytes_parsed;dbg("out",r);
-	R cpu(-ncpu),free(c.i),free(c.b),tab(cnames,r);}
+	R cpu(-ncpu),
+		free(c.i),
+		free(c.b),
+		tab(cnames,r);}
 
 //! read a line from a file descriptor and parse it into into a vector of column names, skipping spaces
 ZK cnm(I fd,I ncol,G sep,S fmt){K z=tn(KS,ncol);UI ln=0,n=1000,e;G c,b[n+1],sp[4]={'\r','\n',sep,0};
