@@ -22,6 +22,6 @@ so: *.c *.h
 
 test: so makefile *.c *.h
 	$C -ocsv main.c libcsv.so $A
-	./csv
+	LD_LIBRARY_PATH=. ./csv
 
 #:~
