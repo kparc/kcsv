@@ -18,4 +18,7 @@ all: *.c *.h
 	@#cp libcsv.so ../k9-2021/
 	@#cd ../k9-2021/ && ./Mi2.0 t/csv.k
 
+test: makefile *.c *.h
+	$C -ocsv main.c libcsv.so $A
+
 #:~
