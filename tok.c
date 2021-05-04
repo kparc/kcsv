@@ -68,7 +68,7 @@ U tok(CSV*r){span in;U intl_idx,sep,trm,qt_mask,f_sep,idx=0,base=0,in_qt=0;IT*ba
 	N(BN,intl_idx=64*i+idx;base=zip(base_ptr,base,intl_idx,fields[i]);)
 	Z(base>=watermark,base=watermark;break);}}
 
- W(idx+=64){
+ for(;;idx+=64){
 	Z(r->bn<idx+64,grow(r,base,watermark));
 	_(prefetch)(r->b+idx+128);
 	in=vld(r->b+idx);mask(f_sep)base=zip(base_ptr,base,idx,f_sep);
