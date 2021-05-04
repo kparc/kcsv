@@ -1,6 +1,6 @@
 #define PRS_IMPL
 
-#include"___.h"
+#include"k.h"
 #include"prs.h"
 #include"thr.h"
 #include"clk.h"

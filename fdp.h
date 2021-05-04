@@ -1,4 +1,4 @@
-//! fast F parser in c, original copyright (c) 2020 lemire et al., apache 2.0
+//! fast double parser in c, original copyright (c) 2020 lemire et al., apache 2.0
 
 #ifndef FAST_DOUBLE_PARSER_H
 #define FAST_DOUBLE_PARSER_H
@@ -34,18 +34,16 @@ typedef struct value128{U low;U high;}value128;
 #if !defined(_M_X64) && !defined(_M_ARM64)// _umul128 for x86, arm
 // this is a slow emulation routine for 32-bit Windows
 //
-static inline U __emulu(UI x, UI y) {
-  return x * (U)y;
-}
-static inline U _umul128(U ab, U cd, U *hi) { // WARNING I assumes unsigned int
-  U ad = __emulu((U)(ab >> 32), (UI)cd);
-  U bd = __emulu((U)ab, (UI)cd);
-  U adbc = ad + __emulu((UI)ab, (UI)(cd >> 32));
-  U adbc_carry = !!(adbc < ad);
-  U lo = bd + (adbc << 32);
+Zin ZU __emulu(UI x, UI y) {R x*(U)y;}
+Zin ZU _umul128(U ab, U cd, U *hi) { // WARNING I assumes unsigned int
+  U ad = __emulu((U)(ab >> 32), (UI)cd),
+    bd = __emulu((U)ab, (UI)cd),
+    adbc = ad + __emulu((UI)ab, (UI)(cd >> 32)),
+    adbc_carry = !!(adbc < ad),
+    lo = bd + (adbc << 32);
   *hi = __emulu((UI)(ab >> 32), (UI)(cd >> 32)) + (adbc >> 32) +
         (adbc_carry << 32) + !!(lo < bd);
-  return lo;
+  R lo;
 }
 #endif
 
