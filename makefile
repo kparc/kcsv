@@ -9,7 +9,7 @@ GNU=gcc-10
 
 W=-Wno-shift-op-parentheses -Wno-unused-value -Wno-int-conversion -Wno-visibility -Wno-parentheses -w
 
-C=$(LVM) -O3 -ferror-limit=1 $W
+C=$(LVM) -O3 -g -ferror-limit=1 $W
 
 all: *.c *.h
 	rm -f libcsv.so
