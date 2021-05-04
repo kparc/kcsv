@@ -23,7 +23,7 @@ typedef struct CSV{
 typedef __m256i vec;typedef __m128i v128;typedef struct span{vec l;vec h;}span;
 #define vld(p)(span){vload(p),vload(p+32)}
 #define mmask _mm256_movemask_epi8
-#define vload _mm256_load_si256
+#define vload _mm256_loadu_si256
 #define cmpeq _mm256_cmpeq_epi8
 #define vset1 _mm256_set1_epi8
 #define vmull _mm_clmulepi64_si128
