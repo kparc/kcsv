@@ -15,7 +15,7 @@
 #define EXP __attribute__((visibility("default")))
 
 #define T(d,t...) typedef d t;
-T(void,_)T(long long,J)T(unsigned long long,U,K)T(char,C)T(unsigned char,G,*S,X VEC)T(unsigned int,UI)T(double,F)T(short,H)T(int,I)
+T(void,_)T(long long,J)T(unsigned long long,U,K)T(char,C)T(unsigned char,G,*S,X VEC)T(unsigned int,UI)T(double,F)T(short,H)T(unsigned short,UH)T(int,I)
 
 //! less is more
 #define R           return
