@@ -11,14 +11,17 @@ W=-Wno-shift-op-parentheses -Wno-unused-value -Wno-int-conversion -Wno-visibilit
 
 C=$(LVM) -O3 -g -ferror-limit=1 $W
 
-all: *.c *.h
+all: test
+
+so: *.c *.h
 	rm -f libcsv.so
 	$C -olibcsv.so ???.c -lm $A -lpthread -shared -fPIC  -undefined dynamic_lookup
 	ls -la libcsv.so
 	@#cp libcsv.so ../k9-2021/
 	@#cd ../k9-2021/ && ./Mi2.0 t/csv.k
 
-test: makefile *.c *.h
+test: so makefile *.c *.h
 	$C -ocsv main.c libcsv.so $A
+	./csv
 
 #:~
