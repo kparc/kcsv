@@ -49,7 +49,7 @@ Zin __m128i _mm_madd_epi16(__m128i a, __m128i b) {
 
 Zin __m128i _mm_packus_epi32(__m128i a, __m128i b) {R vreinterpretq_m128i_u16(vcombine_u16(vqmovun_s32(vreinterpretq_s32_m128i(a)),vqmovun_s32(vreinterpretq_s32_m128i(b))));}
 Zin _ _mm_storeu_si128(__m128i *p, __m128i a){vst1q_s32((UI*)p, vreinterpretq_s32_m128i(a));}
-Zin __m128i _mm_cmplt_epi8(__m128i a, __m128i b){R vreinterpretq_m128i_u8(vcltq_s8(vreinterpretq_s8_m128i(a), vreinterpretq_s8_m128i(b)))}
+Zin __m128i _mm_cmplt_epi8(__m128i a, __m128i b){R vreinterpretq_m128i_u8(vcltq_s8(vreinterpretq_s8_m128i(a), vreinterpretq_s8_m128i(b)));}
 Zin __m128i _mm_andnot_si128(__m128i a, __m128i b){R vreinterpretq_m128i_s32(vbicq_s32(vreinterpretq_s32_m128i(b),vreinterpretq_s32_m128i(a)));}
 Zin __m128i _mm_cmpeq_epi8(__m128i a, __m128i b){R vreinterpretq_m128i_u8(vceqq_s8(vreinterpretq_s8_m128i(a), vreinterpretq_s8_m128i(b)));}
 Zin __m128i _mm_or_si128(__m128i a, __m128i b){R vreinterpretq_m128i_s32(vorrq_s32(vreinterpretq_s32_m128i(a), vreinterpretq_s32_m128i(b)));}
