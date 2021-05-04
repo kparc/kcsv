@@ -8,17 +8,16 @@
 #include<sys/stat.h> // mkfifo
 #include<fcntl.h>    // open
 #include<math.h>     // isfinite
-#include<math.h>     // isfinite
 
 #define VEC __attribute__((vector_size(16),aligned(1)))
 #define Zin __attribute__((always_inline)) inline
 #define Nin __attribute__((noinline))
 #define EXP __attribute__((visibility("default")))
 
-//! less is more
 #define T(d,t...) typedef d t;
 T(void,_)T(long long,J)T(unsigned long long,U,K)T(char,C)T(unsigned char,G,*S,X VEC)T(unsigned int,UI)T(double,F)T(short,H)T(int,I)
 
+//! less is more
 #define R           return
 #define W(a...)     while(a)
 #define P(b,a...)   if(b)R({a;});
