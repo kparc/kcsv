@@ -39,7 +39,7 @@ ZK prs(I fd,I ncol,I hct,I ncpu,U skp,G sep,S fmt,I*fds,prof*prf){BENCH();UI jcn
 		skp=0;ttl(rows)+=rct;N=cct;                 //!< unset skip after first batch
 		WALL(W(N)yld())ttl(ptime)+=wall;            //!< fixme block until all parsers are done
 
-		Z(TRC&&prf->total_rows>=RDS*BATCH,break);          //!< stop after first batch
+		Z(TRC&&prf->total_rows>=RDS*BATCH,break);   //!< stop after first RDS batches
 	}
 	ttl(bytes)=c.rbytes;ttl(parsed)=bytes_parsed;   //!< update stats
 	R cpu(-ncpu),free(c.i),free(c.b),               //!< terminate parser threads, release index and input buffers
