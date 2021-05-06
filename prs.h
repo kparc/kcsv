@@ -19,7 +19,7 @@ Zin ZJ _uj(UI n,S s){G c;J r=0;W((c=*s++)&&dgt(c))r=r*10u+((UI)c-'0');R r;}Zin Z
 
 #include"fdp.h"
 //! building blocks for column parsers
-#define REA() S base=xG-8;UI nbsz=xn=xn+jb->rct;H nt=NW[xt];Z(0>nt,nbsz/=(-nt);nbsz+8;nt=1);base=realloc(base,8+nbsz*nt);zU[jb->jid]=x=8+base; //!< grow result buffer
+#define REA() S base=xG-8;UI nbsz=xn=xn+jb->rct;H nt=NW[xt];Z(0>nt,nbsz/=(-nt);nbsz++;nt=1);base=realloc(base,8+nbsz*nt);zU[jb->jid]=x=8+base; //!< grow result buffer
 #define LP(a...) pjob JB=*jb;U t,total=0;S s=JB.s;Nj(JB.rct,t=j*JB.strd;IT idx=JB.i[t],fl=JB.i[t+1]-idx-1;total+=fl;U pos=j+JB.skip;({a;}))\
  Z(3<JB.fd,U bsz=BSZ(xt,JB.rct),skp=BSZ(xt,JB.skip);wr(JB.fd,xG+skp,bsz))A(add)(&jb->tbytes,total,0);           //<! parser loop
 #define PRS(T,a...) ZI u##T(pjob*jb){K z=jb->x,x=zU[jb->jid];REA();a;R 0;}              //!< common parser template: grow result buffer, enter main loop
