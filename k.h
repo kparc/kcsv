@@ -95,13 +95,13 @@ T(void,_)T(long long,J)T(unsigned long long,U,K)T(char,C)T(unsigned char,G,*S,X 
 
 //! atomics
 #define _(x) __builtin_##x
-#define A(x) __atomic_fetch_##x
+#define A(x) __atomic_##x##_fetch
 
-//! prediction
+//! branching
 #define likely(x)   __builtin_expect(!!(x), 1)
 #define unlikely(x) __builtin_expect(!!(x), 0)
 
-//! avx==arm
+//! avx2neon
 #include"vec.h"
 
 //! type system
@@ -109,7 +109,7 @@ enum{KC=1,KS=2,KB=8,KG=11,KI=13,KJ=14,KD=25,KT=29,KF=43,XT=253};
 ZC NW[48]={8,8,8,0,0,0,0,0,-8,0,0,1,0,4,8,0,0,0,0,0,0,0,0,0,0,4,0,0,0,8,0,0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,0,0}; //!< native type width
 //         0 1 2 3 4 5 6 7  8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7
 //         K C S            B     G   I J                     D       T                           F
-Zin  U BSZ(I t,U n){I nt=NW[t];Z(0>nt,n/=-nt,nt=1);R n*nt;}    //!< bytesize of a vector type t of length n
+Zin  U BSZ(I t,U n){I nt=NW[t];Z(0>nt,n/=-nt,n++,nt=1);R n*nt;}    //!< bytesize of a vector type t of length n
 
 //! easy strtok: (s)tr le(n) (d)elims e(x)ec: exec is arbitrary code, has access to t,tn,tp: token, token length, token position
 #define stok(s,n,d,x){ZG _z=0,D[255]="*";Z(!_z,_z=1;N(strlen(d),D[d[i]]='*'));{\
@@ -118,7 +118,7 @@ Zin  U BSZ(I t,U n){I nt=NW[t];Z(0>nt,n/=-nt,nt=1);R n*nt;}    //!< bytesize of 
 #define mcp    memcpy
 #define mem(n) calloc(1,n)
 #define sln    strlen
-#define new(t) calloc(1,sizeof(t))
+#define new(t) mem(sizeof(t))
 
 //! syms
 Zin  K us(UI n,S s){R!n?0:*(U*)s&~0ULL>>64-8*min(8,n);}               //!< construct a sym from string s of length n (quasi-uint64, maxlen=8)
@@ -137,5 +137,8 @@ Zin  K tab(K keys,K cols){K x=tn(0,2);R xt=XT,xx=keys,xy=cols,x;}     //!< const
 typedef UI IT;
 
 #define NCPU ((I)sysconf(_SC_NPROCESSORS_ONLN))
+
+#define bits(t,one)Zin _ OB##t(t n){N(sizeof(t)*8,O("%c%c",(n&(one<<i))?'1':'0',(((i+1)%32))?' ':'\n'))}
+bits(U,1LL)bits(G,1) //!< dump bits
 
 //:~

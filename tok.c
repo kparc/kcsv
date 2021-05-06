@@ -56,7 +56,7 @@ U tok(CSV*r){span in;U intl_idx,sep,trm,qt_mask,f_sep,idx=0,base=0,in_qt=0,prev_
 	r->b=(S)malloc(r->bn=ADJ+128),
 	r->i=base_ptr=(IT*)malloc(sizeof(IT)*(watermark+1)),
 	*base_ptr=0,base_ptr++,r->bn=r->more=readn(r->d,r->b,r->bn,r);
-	printf("seed alloc r->bn %llu r->i %p\n",r->bn,r->i);
+	printf("seed alloc r->bn %p r->i %p\n",r->bn,r->i);
  } else {
 	IT last=r->i[watermark-1];U taillen=r->bn-last;
 	//printf("bn %llu r->n %llu i[n+1] %d taillen %llu more %llu\n", r->bn, r->n, last, taillen,r->more);
