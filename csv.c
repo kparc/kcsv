@@ -53,7 +53,7 @@ ZK cnm(I fd,I ncol,G sep,S fmt){K z=tn(KS,ncol);UI ln=0,n=1000,e;G c,b[n+1],sp[4
 EXP K csv(K r){BENCH(); //!< entry point   (argparse + i/o + bench)   r:(infile;formatspec;colnames;outdir;maxcore;skip)
 	K x=rU[0],y=rU[1],z=rU[2],f=rU[3];I ncpu=max(1,min((I)rU[4],NCPU)),skp=rU[5],ncol=yn-1,fd=opr(x);G*fmt=yG,sep=*fmt++;
 
-	QQ(!z&&skp,"cnames")Z(!z&&!skp,z=cnm(fd,ncol,sep,fmt);skp=1); //<! if column names are not explicit, parse them from 0th row
+	QQ(!z&&skp,"colnames")Z(!z&&!skp,z=cnm(fd,ncol,sep,fmt);skp=0); //<! if column names are not explicit, parse them from 0th row
 
 	I*fds=opw(f,z); //!< open output descriptors in directory f
 
