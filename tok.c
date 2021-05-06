@@ -19,8 +19,8 @@ Zin U cmi(span z,G m){vec b=vset1(m);U x=(UI)mmask(cmpeq(b,z.l)),y=mmask(cmpeq(b
 Zin U fqm(span x,U*in_q){U qbts=cmi(x,'"');U m=vmull(aV(qbts,0),aV(-1ULL),0)[0];R SHR(m);}
 #endif
 
-#define z(i) p[ba+i]=1+idx+_(ctzll)(b),b=b&(b-1);
-Zin IT zip(IT*p,IT ba,IT idx,U b){P(!b,ba)IT n=_(popcountll)(b),nxb=ba+n;N(8,z(i))Z(n>8,N(8,z(i+8)));Z(n>16,ba+=16;do{z(0)ba++;}W(b));R nxb;}
+#define z(i) p[ba+i]=1+idx+_(ctzll)(b),b&=b-1;//O("n %2d  i %2d  ba+i %-6d  p[ba+i] %-6d  %d\n",n,i,ba+i,p[ba+i],p[ba+i]-idx-1);
+Zin IT zip(IT*p,IT ba,IT idx,U b){P(!b,ba)IT n=ham(b);N(8,z(i))Z(n>8,N(8,z(i+8))Z(unlikely(n>16),ba+=16;do{z(0)ba++;}W(b)));R ba+n;}
 
 #define mask(dest) qt_mask=r->quo?fqm(in,&in_qt):0,sep=cmi(in,r->sep),trm=cmi(in,'\n');dest=(trm|sep)&~qt_mask;  //!< nocrlf
 //#define mask(dest) qt_mask=r->quo?fqm(in,&in_qt):0,sep=cmi(in,r->sep);U cr=cmi(in,0x0d),cr_adj=(cr<<1)|prev_iter_cr_end,lf=cmi(in,0x0a);trm=lf&cr_adj;prev_iter_cr_end=cr>>63;dest=(trm|sep)&~qt_mask;
@@ -73,7 +73,7 @@ U tok(CSV*r){span in;U intl_idx,sep,trm,qt_mask,f_sep,idx=0,base=0,in_qt=0,prev_
 	_(prefetch)(r->b+idx+128);
 	in=vld(r->b+idx);mask(f_sep)base=zip(base_ptr,base,idx,f_sep);
 	Z(base>=watermark,base=watermark;break);
-	Z(!r->more,break;);}
+	Z(!r->more,break);}
 
  R r->n=base;}
 

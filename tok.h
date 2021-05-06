@@ -42,6 +42,8 @@ Zin U mmask(vec p0,vec p1,vec p2,vec p3){
  R vgetq_lane_u64(vreinterpretq_u64_u8(sum0),0);}
 #endif
 
+#define ham _(popcountll) //!< hamming weight
+
 // compare mask vs input, 5 uops, should be cheaper with avx512
 Zin U cmi(span in,G m);
 

@@ -19,6 +19,6 @@ so: *.c *.h
 
 test: so makefile *.c *.h
 	$C -ocsv main.c -L. -lcsv $A
-	LD_LIBRARY_PATH=. ./csv
+	LD_LIBRARY_PATH=. ./csv EQY_US_ALL_TRADE_20201210 "|QsssifsgijssQQb" taq
 
 #:~
