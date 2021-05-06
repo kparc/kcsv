@@ -1,7 +1,12 @@
+ARMOPT=-march=armv8-a+crc+crypto
 ifneq ($(shell uname -m),arm64)
- A=-march=native
+ ifneq ($(shell uname -m),aarch64)
+  A=-march=native
+ else
+  A=$(ARMOPT)
+ endif
 else
- A=-march=armv8-a+crc+crypto
+ A=$(ARMOPT)
 endif
 
 LVM=clang
