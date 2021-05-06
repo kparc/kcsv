@@ -7,7 +7,7 @@
 
 #define BN 8 //buffering rounds for better pipelining
 
-Zin U _readn(I d,S b,U n){U r=0;J e;W(n){e=read(d,b,n);P(e<0,O("!read =%d b=%p u=%d %d %s\n",d,b,n,e,strerror(errno)),exit(1),0)P(!e,r)b+=e,n-=(U)e,r+=(U)e;};R r;}
+Zin U _readn(I d,S b,U n){U r=0;J e;W(n){e=read(d,b,n);P(e<0,O("!read d=%d b=%p u=%d %d %s\n",d,b,n,e,strerror(errno)),exit(1),0)P(!e,r)b+=e,n-=(U)e,r+=(U)e;};R r;}
 Zin U readn(I d,S b,U n,CSV*c){BENCH();U r=0;WALL(r=_readn(d,b,n))R c->rbytes+=r,c->rtime+=wall,r;}
 
 #define SHR(m) m^=*in_q,*in_q=((J)(m))>>63,m //assumes shr(J) well-defined
@@ -40,8 +40,9 @@ _ seed(CSV*r){
 Zin _ grow(CSV*r,U base,U wm){
 	if(!base){base=1;}
 	r->bpf=(F)r->bn/base;
-	//printf("underflow bn %llu    base = %llu   water = %llu  BPF = %f   fix=%llu\n",r->bn, base, wm, r->bpf, (U)ceil((wm-base)*r->bpf));
 	U fix=(U)ceil((wm-base)*r->bpf);
+
+	printf("underflow bn %llu    base = %llu   water = %llu  BPF = %f   fix=%llu\n",r->bn, base, wm, r->bpf, fix);
 	r->b=realloc(r->b,r->bn+fix+256);
 	memset(r->b+r->bn,0,fix+256);
 	//printf("r->b+r->bn %llu\n",fix);
@@ -66,7 +67,8 @@ U tok(CSV*r){span in;U intl_idx,sep,trm,qt_mask,f_sep,idx=0,base=0,in_qt=0,prev_
  if(BN&&r->bn>64*BN){U fields[BN];for(;idx<r->bn-64*BN+1;idx+=64*BN){ //eliminated if BN is zero
 	N(BN,intl_idx=64*i+idx;_(prefetch)(r->b+intl_idx+128);in=vld(r->b+intl_idx);mask(fields[i]))
 	N(BN,intl_idx=64*i+idx;base=zip(base_ptr,base,intl_idx,fields[i]);)
-	Z(base>=watermark,base=watermark;break);}}
+	Z(base>=watermark,base=watermark;break);
+  }}
 
  for(;;idx+=64){
 	Z(r->bn<idx+64,grow(r,base,watermark));
