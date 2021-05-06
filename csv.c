@@ -4,7 +4,7 @@
 
 static Qr Q;ZJ N; //!< job (q)ueue, (n)umber of running threads
 
-_ thr(U id){pjob*jb;W(1){jb=(pjob*)deq(Q);Z(jb,Z(jb->jid<0,break);jb->p(jb);A(sub)(&N,1,0);continue;)yld();}}   //!< parser thread
+_ thr(U id){pjob*jb;W(1){jb=(pjob*)deq(Q);Z(jb,Z(jb->jid<0,break);jb->p(jb);A(sub)(&N,1,0);continue)yld();}}    //!< parser thread
 _ cpu(I n){Z(Q,R)Z(0<n,Q=que();N(n,launch(thr,i))){pjob jb={-1};N(-n,enq(Q,&jb))join_all();free(Q);}}           //!< launch/join parser threads
 
 #define MAP(c,t,f) C(c,typ[i]=t==KC?0:t==KQ?KJ:t;y=rU[cct++]=tn(typ[i],1);Z(t==KB,yG[-8]=1);prs[i]=(PRS)u##f)   //!< map coltype specifier to corresponding parser function
@@ -15,8 +15,8 @@ ZK prs(I fd,I ncol,I hct,I ncpu,U skp,G sep,S fmt,I*fds,prof*prf){BENCH();UI jcn
 
 	QQ(cct-hct,"length") //!< disparity between colname count and colformat count is hard error
 
-    //    {I d;UI batch;G sep;G quo;S b;U bn;IT*i;U n;I cct;I rea;U more;F bpf;F rtime;U rbytes;}              //!< tokenizer re-entry struct
-	CSV c={ fd,   BATCH,  sep,    0,  0,   0,   0,  0, ncol,    0,     1,  1.0,    0.0,      0};
+        //    {I d;UI batch;G sep;G quo;S b;U bn;IT*i;U n;I cct;I rea;U more;F bpf;F rtime;U rbytes;}           //!< tokenizer re-entry struct
+        CSV c={ fd,   BATCH,  sep,    0,  0,   0,   0,  0, ncol,    0,     1,  1.0,    0.0,       0};
 
 	pjob jobs[cct];ncpu=ttl(cores)=min(cct,ncpu);
 
