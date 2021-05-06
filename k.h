@@ -127,7 +127,7 @@ Zin  I sn(K x){R 8-_(clzll)(x)/8;}                                    //!< sym l
 Zin ZK tn(I t,I n){K x;H nt=NW[t];U bn=n;Z(0>nt,bn/=-nt;nt=1);R x=(K)(8+(S)malloc(8+nt*bn)),xt=t,xn=n,x;} //!< allocate vec of type t of len n
 Zin  K Sc(S s){UI n=sln(s);K x=tn(KC,n);R mcp(xG,s,n),x;}             //!< c_str to char vector
 Zin  S cS(K x){S r=mem(xn+1);R mcp(r,xG,xn),r;}                       //!< char vector to null-terminated c_str
-Zin  K str(K x){I n=sn(x);K r=tn(KC,n+1);R mcp(rG,(S)&x,n),rn--,r;}   //!< sym to null-terminated char vector
+Zin  K str(K x){I n=sn(x);K r=tn(KC,n+1);rG[n]=0;R mcp(rG,(S)&x,n),rn--,r;} //!< sym to null-terminated char vector
 
 Zin  K r1(K x){R A(add)(&xG[-6],1,0),x;}                              //!< increment refcount
 Zin  K r0(K x){C r=xG[-6];P(r,A(sub)(&xG[-6],1,0))R free(xG-8),0;}    //!< decrement refcount or free
