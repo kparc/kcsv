@@ -9,12 +9,21 @@ else
  A=$(ARMOPT)
 endif
 
-LVM=clang
-GNU=gcc-10
+# this could be an extra ./configure step
+# - require either gcc-10 or clang
+ifeq      ($(shell gcc   -v 2>&1|grep -o 'gcc version 10'),gcc version 10)
+ CC=gcc
+ W=-fmax-errors=1 -flax-vector-conversions
+else ifeq ($(shell clang -v 2>&1|grep -o 'clang' ),clang)
+ CC=clang
+ W=-ferror-limit=1 -Wno-visibility -Wno-shift-op-parentheses
+else
+ $(error no suitable compiler)
+endif
+W:=$W -Wno-unused-value -Wno-int-conversion -Wno-parentheses -w
 
-W=-Wno-shift-op-parentheses -Wno-unused-value -Wno-int-conversion -Wno-visibility -Wno-parentheses -w
 
-C=$(LVM) -O3 -g -ferror-limit=1 $W
+C=$(CC) -O3 -g $W
 
 all: test
 
