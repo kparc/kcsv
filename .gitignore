@@ -1,6 +1,7 @@
 libcsv*
 *.dSYM
+.DS_Store
 csv
-EQY_US_ALL_TRADE_20201210
+EQY_US_ALL_TRADE_20201210*
 *2.0
 taq
