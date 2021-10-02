@@ -35,7 +35,7 @@ PRS(F,LP(parse_float(s+idx,(F*)xU+pos)))                             //!< ieee d
 PRS(B,G ctr=0;LP(xG[pos/8+1]|=(s[idx]=='1')<<ctr;Z(7==ctr++,ctr=0))) //!< packed bools
 PRS(Q,ZG sep=0;I r[4];X m0=_mm_set1_epi8('0'),                       //!< fast uint64 fixlen=15 (Q)
  m10={fill(10),10,1,10,1,10,1,10,sep},m100=_mm_setr_epi16(fill(100)),m10000=_mm_setr_epi16(fill(10000));
- LP(Z(!fl,*(xU+pos)=0){X input=_mm_loadu_si128(s+idx)-m0,t1=_mm_maddubs_epi16(input,m10),t2=_mm_madd_epi16(t1,m100),t3=_mm_packus_epi32(t2,t2),t4=_mm_madd_epi16(t3,m10000);
+ LP(Z(!fl,*(xU+pos)=0){X input=(X)_mm_loadu_si128(s+idx)-m0,t1=_mm_maddubs_epi16(input,m10),t2=_mm_madd_epi16(t1,m100),t3=_mm_packus_epi32(t2,t2),t4=_mm_madd_epi16(t3,m10000);
   _mm_storeu_si128(r,t4);U res=((U)(r[0])*100000000u+(U)(r[1]))/10;*(xU+pos)=res;}))
 #endif
 

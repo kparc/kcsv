@@ -7,7 +7,7 @@
 
 #define BN 8 //buffering rounds for better pipelining
 
-Zin U _readn(I d,S b,U n){U r=0;J e;W(n){e=read(d,b,n);P(e<0,O("!read d=%d b=%p u=%d %d %s\n",d,b,n,e,strerror(errno)),exit(1),0)P(!e,r)b+=e,n-=(U)e,r+=(U)e;};R r;}
+Zin U _readn(I d,S b,U n){U r=0;J e;W(n){e=read(d,b,n);P(e<0,O("!read d=%d b=%p u=%llu %lld %s\n",d,b,n,e,strerror(errno)),exit(1),0)P(!e,r)b+=e,n-=(U)e,r+=(U)e;};R r;}
 Zin U readn(I d,S b,U n,CSV*c){BENCH();U r=0;WALL(r=_readn(d,b,n))R c->rbytes+=r,c->rtime+=wall,r;}
 
 #define SHR(m) m^=*in_q,*in_q=((J)(m))>>63,m //assumes shr(J) well-defined
@@ -57,7 +57,7 @@ U tok(CSV*r){span in;U intl_idx,sep,trm,qt_mask,f_sep,idx=0,base=0,in_qt=0,prev_
 	r->b=(S)malloc(r->bn=ADJ+128),
 	r->i=base_ptr=(IT*)malloc(sizeof(IT)*(watermark+1)),
 	*base_ptr=0,base_ptr++,r->bn=r->more=readn(r->d,r->b,r->bn,r);
-	printf("seed alloc r->bn %p r->i %p\n",r->bn,r->i);
+	printf("seed alloc r->bn %llu r->i %p\n",r->bn,r->i);
  } else {
 	IT last=r->i[watermark-1];U taillen=r->bn-last;
 	//printf("bn %llu r->n %llu i[n+1] %d taillen %llu more %llu\n", r->bn, r->n, last, taillen,r->more);

@@ -3,7 +3,7 @@
 #define TRC   0
 #define RDS   1000
 
-#define BATCH 1e3 //!< rows per read+tokenize iteration (stage 1)
+#define BATCH 1e7 //!< rows per read+tokenize iteration (stage 1)
 
 static Qr Q;ZJ N; //!< job (q)ueue, (n)umber of running threads
 

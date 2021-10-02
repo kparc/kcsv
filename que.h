@@ -6,7 +6,8 @@
 typedef struct qnode{_*x;struct qnode*next;}*Qn;
 typedef struct qroot{Qn head;Qn tail;volatile UI n;}*Qr;
 
-#define YIELD  100
+#define YIELD  10      //!< hibernate thread before checking for a new job
+//#define YIELD  0
 #define yld() _yld(YIELD)
 
 Qr que();UI enq(Qr q,_*x);_*deq(Qr q);_ _yld(UI usec); //!< new, enqueue, dequeue, yield
